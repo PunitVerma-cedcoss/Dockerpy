@@ -72,10 +72,10 @@ pwd = res[0].decode('utf-8').replace("\n",'')
 folder_name = input(" >> ").strip()
 if folder_name.count(" ") > 0:
     folder_name = '_'.join(folder_name.split(" "))
-pprint("[+] "+pwd+"/"+folder_name)
+pprint("[\U0001f600] "+pwd+"/"+folder_name)
 subprocess.Popen('mkdir '+pwd+"/"+folder_name, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 new_dir = pwd+"/"+folder_name + "/"
-pprint("[+] dir created")
+pprint("[+] dir created","green")
 pprint("[+] creating src dir ")
 subprocess.Popen('mkdir '+pwd+"/"+folder_name+"/src", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 pprint("[+] generating default html setup")
@@ -84,18 +84,20 @@ with open(pwd+"/"+folder_name+"/src/index.html","w") as file:
   file.write(html)
 with open(pwd+"/"+folder_name+"/src/main.css","w") as file:
   file.write('')
-pprint("[+] default html setup generated","green")
+pprint("[\U0001f929] default html setup generated","green")
 pprint("[+] moving docker files ")
 time.sleep(1)
 with open(pwd+"/"+folder_name+"/docker-compose.yml","w") as file:
     file.write(docker_compose)
 with open(pwd+"/"+folder_name+"/php.Dockerfile","w") as file:
     file.write(dockerphp)
-pprint("[+] docker files created successfully - ")
+pprint("[+] docker files created successfully \U0001f60e ","green")
+subprocess.Popen('git init '+pwd+"/"+folder_name, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+pprint("[+] git initlizied","green")
 subprocess.Popen('code '+pwd+"/"+folder_name, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-pprint("[+] vscode started")
+pprint("[+] vscode started","green")
 ch = input('stop docker containers >> ').lower()
 if ch == 'y' or ch == 'yes':
   pprint("killing docker")
   subprocess.Popen('docker kill $(docker ps -q)', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-  pprint("docker stopped successfully")
+  pprint("docker stopped successfully","green")
