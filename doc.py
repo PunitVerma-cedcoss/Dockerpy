@@ -36,6 +36,21 @@ dockerphp = """
 FROM php:7.4.3-apache
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 """.strip()
+html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+""".strip()
 def pprint(msg,color=""):
     if color == 'green':
       print(f"\033[32m{msg}\033[0m")
@@ -63,6 +78,13 @@ new_dir = pwd+"/"+folder_name + "/"
 pprint("[+] dir created")
 pprint("[+] creating src dir ")
 subprocess.Popen('mkdir '+pwd+"/"+folder_name+"/src", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+pprint("[+] generating default html setup")
+time.sleep(1)
+with open(pwd+"/"+folder_name+"/src/index.html","w") as file:
+  file.write(html)
+with open(pwd+"/"+folder_name+"/src/main.css","w") as file:
+  file.write('')
+pprint("[+] default html setup generated","green")
 pprint("[+] moving docker files ")
 time.sleep(1)
 with open(pwd+"/"+folder_name+"/docker-compose.yml","w") as file:
